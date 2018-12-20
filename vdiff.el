@@ -520,9 +520,10 @@ POST-REFRESH-FUNCTION is called when the process finishes."
                          vdiff-diff3-command
                        (vdiff-diff-command)))
            (ses vdiff--session)
+		   (ws (vdiff-session-whitespace-args ses))
            (cmd (append
                  base-cmd
-                 (vdiff-session-whitespace-args ses)
+                 (unless (string-empty-p ws) (list ws))
                  (unless (string= (car base-cmd) "git")
                    (vdiff-session-case-args ses))
                  (list "--" tmp-a tmp-b)
